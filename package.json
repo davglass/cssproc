@@ -1,0 +1,31 @@
+{
+    "name": "cssproc",
+    "description": "CSS URL processor",
+    "author": "Dav Glass <davglass@gmail.com>",
+    "version": "0.0.1",
+    "main": "./lib/index.js",
+    "devDependencies": {
+        "vows": "*" ,
+        "yui-lint": "~0.1.1",
+        "jshint": "~0.9.0",
+        "istanbul": "~0.1.8"
+    },
+    "keywords": [
+        "css", "processor", "combohandler"
+    ],
+    "scripts": {
+        "pretest": "jshint --config ./node_modules/yui-lint/jshint.json ./lib/*.js ./tests/*.js",
+        "test": "istanbul cover --print both vows -- --spec ./tests/*.js"
+    },
+    "bugs": { "url" : "http://github.com/davglass/cssproc/issues" },
+    "licenses":[
+        {
+            "type" : "BSD",
+            "url" : "https://github.com/davglass/cssproc/blob/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type":"git",
+        "url":"http://github.com/davglass/cssproc.git"
+    }
+}
