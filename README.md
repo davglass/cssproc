@@ -59,4 +59,6 @@ fs.readFile(file, 'utf8', function(err, data) {
 });
 ```
 
-It can also be used inside of a [combo handler](https://github.com/rgrove/combohandler)
+It could also be used inside of a [combo handler](https://github.com/rgrove/combohandler)
+
+
