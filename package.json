@@ -2,7 +2,7 @@
     "name": "cssproc",
     "description": "CSS URL processor",
     "author": "Dav Glass <davglass@gmail.com>",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "./lib/index.js",
     "devDependencies": {
         "vows": "*" ,
