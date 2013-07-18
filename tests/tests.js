@@ -357,7 +357,7 @@ var tests = {
                     str += "      sizingMethod='scale'\n";
                     str += '   );\n';
                     str += '};\n';
-                
+
                 assert.equal(str, topic);
             }
         }
@@ -407,6 +407,42 @@ var tests = {
         },
         'and not change anything': function(topic) {
             assert.equal(this.str, topic);
+        }
+    },
+    'base as absolute path - /path/to': {
+        topic: function() {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+            cssproc.parse({
+                root: '/home/yui/src/',
+                path: '/home/yui/src/foo/bar/baz/file.css',
+                base: '/path/to/build/'
+            }, str, this.callback);
+        },
+        'and should return /path/to/build/foo.gif': function(topic) {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(/path/to/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+            assert.equal(str, topic);
+        }
+    },
+    'base without procol - //foobar.com': {
+        topic: function() {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+            cssproc.parse({
+                root: '/home/yui/src/',
+                path: '/home/yui/src/foo/bar/baz/file.css',
+                base: '//foobar.com/build/'
+            }, str, this.callback);
+        },
+        'and should return /path/to/build/foo.gif': function(topic) {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(//foobar.com/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+            assert.equal(str, topic);
         }
     }
 };
