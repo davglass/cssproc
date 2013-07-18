@@ -61,4 +61,12 @@ fs.readFile(file, 'utf8', function(err, data) {
 
 It could also be used inside of a [combo handler](https://github.com/rgrove/combohandler)
 
+Base
+----
 
+The value of `base` could be:
+
+* `http://foobar.com/path/to` where protocol will be forced to HTTP
+* `https://foobar.com/path/to` where protocol will be forced to SSL
+* `//foobar.com/path/to` which is protocol agnostic where it uses the protocol for the css file that contains the images.
+* `/path/to` for absolute paths where it uses the domain and protocol from the css file that contains the images.
