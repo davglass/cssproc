@@ -565,7 +565,9 @@ var tests = {
                     path: '/home/yui/src/another.css',
                     base: [
                         '//xyz.com/build/',
-                        '//abc.com/build/'
+                        '//abc.com/build/',
+                        '//asd.com/build/',
+                        '//qwe.com/build/'
                     ]
                 }, str, this.callback);
             },
@@ -577,10 +579,10 @@ var tests = {
                     str += '    background: url(//abc.com/build/foo.gif);\n';
                     str += '};\n';
                     str += '.yui-test-cssprocessor3 {\n';
-                    str += '    background: url(//xyz.com/build/foo.gif);\n';
+                    str += '    background: url(//asd.com/build/foo.gif);\n';
                     str += '};\n';
                     str += '.yui-test-cssprocessor4 {\n';
-                    str += '    background: url(//abc.com/build/foo.gif);\n';
+                    str += '    background: url(//qwe.com/build/foo.gif);\n';
                     str += '};\n';
                 assert.equal(str, topic);
             }
