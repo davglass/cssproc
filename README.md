@@ -70,3 +70,4 @@ The value of `base` could be:
 * `https://foobar.com/path/to` where protocol will be forced to SSL
 * `//foobar.com/path/to` which is protocol agnostic where it uses the protocol for the css file that contains the images.
 * `/path/to` for absolute paths where it uses the domain and protocol from the css file that contains the images.
+* `['server1.com/path/to', 'server2.com/path/to', etc]` an array of hosts to loop through and alternate in the file.
