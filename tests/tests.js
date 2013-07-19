@@ -444,6 +444,46 @@ var tests = {
                 str += '};\n';
             assert.equal(str, topic);
         }
+    },
+    'base with multiple domains': {
+        topic: function() {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor2 {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor3 {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor4 {\n';
+                str += '    background: url(foo.gif);\n';
+                str += '};\n';
+            cssproc.parse({
+                root: '/home/yui/src/',
+                path: '/home/yui/src/foo/bar/baz/file.css',
+                base: [
+                    '//foobar.com/build/',
+                    '//s1.foobar.com/build/',
+                    'http://s2.foobar.com/build/'
+                ]
+            }, str, this.callback);
+        },
+        'and should use multiple domains': function(topic) {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(//foobar.com/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor2 {\n';
+                str += '    background: url(//s1.foobar.com/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor3 {\n';
+                str += '    background: url(http://s2.foobar.com/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor4 {\n';
+                str += '    background: url(//foobar.com/build/foo/bar/baz/foo.gif);\n';
+                str += '};\n';
+            assert.equal(str, topic);
+        }
     }
 };
 
