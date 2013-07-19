@@ -212,6 +212,23 @@ var tests = {
             'and should not change url': function(topic) {
                 assert.equal(this.str, topic);
             }
+        },
+        'url(//foobar.com/foo.gif)': {
+            topic: function() {
+                var str = '.yui-test-cssprocessor {\n';
+                    str += '    background: url(//foobar.com/foo.gif);\n';
+                    str += '};\n';
+
+                this.str = str;
+                cssproc.parse({
+                    root: '/home/yui/src/',
+                    path: '/home/yui/src/file.css',
+                    base: '//xyz.com/build/'
+                }, str, this.callback);
+            },
+            'and should not change url': function(topic) {
+                assert.equal(this.str, topic);
+            }
         }
     },
     'VML': {
