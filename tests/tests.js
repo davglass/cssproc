@@ -484,6 +484,107 @@ var tests = {
                 str += '};\n';
             assert.equal(str, topic);
         }
+    },
+    'multiple base with chaining calls': {
+        topic: function() {
+            var callback = this.callback,
+                str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(bar.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor2 {\n';
+                str += '    background: url(bar.gif);\n';
+                str += '};\n';
+            cssproc.parse({
+                root: '/home/yui/src/',
+                path: '/home/yui/src/file.css',
+                base: [
+                    'https://foobar.com/build/',
+                    'https://barfoo.com/build/'
+                ]
+            }, str, function (err, firstBlob) {
+                var str = firstBlob;
+                    str += '.yui-test-cssprocessor {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor2 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor3 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor4 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                cssproc.parse({
+                    root: '/home/yui/src/',
+                    path: '/home/yui/src/another.css',
+                    base: [
+                        '//xyz.com/build/',
+                        '//abc.com/build/'
+                    ]
+                }, str, callback);
+            });
+        },
+        'and should not mix the index for multiple domains': function(topic) {
+            var str = '.yui-test-cssprocessor {\n';
+                str += '    background: url(https://foobar.com/build/bar.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor2 {\n';
+                str += '    background: url(https://barfoo.com/build/bar.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor {\n';
+                str += '    background: url(//xyz.com/build/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor2 {\n';
+                str += '    background: url(//abc.com/build/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor3 {\n';
+                str += '    background: url(//xyz.com/build/foo.gif);\n';
+                str += '};\n';
+                str += '.yui-test-cssprocessor4 {\n';
+                str += '    background: url(//abc.com/build/foo.gif);\n';
+                str += '};\n';
+            assert.equal(str, topic);
+        },
+        'and parse another chunk with multi domains': {
+            topic: function() {
+                var str  = '.yui-test-cssprocessor {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor2 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor3 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor4 {\n';
+                    str += '    background: url(foo.gif);\n';
+                    str += '};\n';
+                cssproc.parse({
+                    root: '/home/yui/src/',
+                    path: '/home/yui/src/another.css',
+                    base: [
+                        '//xyz.com/build/',
+                        '//abc.com/build/'
+                    ]
+                }, str, this.callback);
+            },
+            'and should restart the index to -1': function(topic) {
+                var str  = '.yui-test-cssprocessor {\n';
+                    str += '    background: url(//xyz.com/build/foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor2 {\n';
+                    str += '    background: url(//abc.com/build/foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor3 {\n';
+                    str += '    background: url(//xyz.com/build/foo.gif);\n';
+                    str += '};\n';
+                    str += '.yui-test-cssprocessor4 {\n';
+                    str += '    background: url(//abc.com/build/foo.gif);\n';
+                    str += '};\n';
+                assert.equal(str, topic);
+            }
+        }
     }
 };
 
